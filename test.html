@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    <link rel="stylesheet" href="styleLog.css" />
+</head>
+<body style="background-color: #dab171 ">
+<form action="index.html" method="POST" style="padding-top: 250px; padding-bottom: 250px; background-color: #ebd5b3">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="Username">
+        <span></span>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" placeholder="Password">
+        <span></span>
+    </div>
+    <button id="log-in">Log-in</button>
+</form>
+</body>
+</html>
+<script type="text/javascript">
+    window.onload = ()=>{
+        this.sessionStorage.setItem('username', 'wapalak');
+        this.sessionStorage.setItem('password', '123456');
+    }
+
+    var input = document.getElementsByTagName('input');
+    var login = document.getElementById('log-in');
+    var form = document.querySelector('form');
+    form.onsubmit = ()=>{return false;}
+
+    login.onclick = ()=>{
+
+        if ((input[0].value != "") && (input[1].value != ""))
+        {
+            if ((input[0].value == sessionStorage.getItem('username')) && (input[1].value == sessionStorage.getItem('password')))
+            {
+                form.onsubmit = ()=>{return 1;}
+                document.cookie = "username="+input[0].value;
+                document.cookie = "password="+input[1].value;
+            }
+            else
+            {
+                if ((input[0].value != sessionStorage.getItem('username')) )
+                {
+                    input[0].nextElementSibling.textContent = "Username NOT match";
+                    setTimeout(()=>{
+                        input[0].nextElementSibling.textContent = "";
+                    }, 2000);
+
+                }
+                if ((input[1].value != sessionStorage.getItem('password')) )
+                {
+                    input[1].nextElementSibling.textContent = "Password NOT match";
+                    setTimeout(()=>{
+                        input[1].nextElementSibling.textContent = "";
+                    }, 2000);
+
+                }
+
+            }
+
+        }
+        else
+        {
+            if (input[0].value == "")
+            {
+                input[0].nextElementSibling.textContent = "Username is empty";
+                setTimeout(()=>{
+                    input[0].nextElementSibling.textContent = "";
+                }, 2000);
+            }
+            if (input[1].value == "")
+            {
+                input[1].nextElementSibling.textContent = "Password is empty";
+                setTimeout(()=>{
+                    input[1].nextElementSibling.textContent = "";
+                }, 2000);
+            }
+        }
+    }
+
+
+</script>
